@@ -7,6 +7,7 @@ import './loginPage.css'
 export const LoginPage = () => {
   return (
     <div>LoginPage
+      
         <Login/>
         <Register />
 
