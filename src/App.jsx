@@ -1,14 +1,16 @@
-import { useState } from 'react'
-import './App.css'
+import { Routes, Route } from "react-router";
+import Topbar from "./components/Topbar.jsx";
+import BootcampsDashboard from "./views/dashboardPage/BootcampsDashboard.jsx";
+import BootcampDetail from "./views/dashboardPage/BootcampDetail.jsx";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
     <>
-      <h1>Kodigo-appi-app</h1>
+      <Topbar />
+      <Routes>
+        <Route path="/" element={<BootcampsDashboard />} />
+        <Route path="/bootcamps/:id" element={<BootcampDetail />} />
+      </Routes>
     </>
-  )
+  );
 }
-
-export default App
