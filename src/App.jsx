@@ -1,25 +1,29 @@
-import { useState } from 'react'
-import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './views/homePage/HomePage.jsx';
-// import LoginPage from './views/LoginPage/LoginPage'; 
-// import RegisterPage from './views/RegisterPage/RegisterPage';
-// import DashboardPage from './views/DashboardPage/DashboardPage';
 
-const AppRouter = () => {
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Topbar from './components/Topbar/Topbar'; 
+import HomePage from './views/homePage/HomePage.jsx'; // 
+import BootcampsDashboard from './views/dashboardPage/BootcampsDashboard'; 
+import BootcampDetail from './views/dashboardPage/BootcampDetail'; // 
+import './App.css';
+
+function App() { 
+
   return (
     <Router>
+      <Topbar />
       <Routes>
-        {/*Ruta para la HomePage */}
+        {/* Ruta para la HomePage */}
         <Route path="/" element={<HomePage />} />
-        
-        {/* Aquí irán las otras rutas. */}
+
+        {/* Las rutas del compañero para el Dashboard */}
+        <Route path="/dashboard" element={<BootcampsDashboard />} />
+        <Route path="/bootcamps/:id" element={<BootcampDetail />} />
+
         {/* <Route path="/login" element={<LoginPage />} /> */}
-        {/* <Route path="/register" element={<RegisterPage />} /> */}
-        {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
       </Routes>
+
     </Router>
   );
-};
+}
 
-export default AppRouter;
+export default App;
