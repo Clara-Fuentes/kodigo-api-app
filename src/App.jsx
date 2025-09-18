@@ -1,30 +1,23 @@
-import { useState } from 'react'
+// App.jsx
 import './App.css'
-import NavBar from "./components/NavBar"
+import { BrowserRouter, Routes, Route } from 'react-router' 
+import Topbar from './components/Topbar.jsx'
+import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-import Card from './components/Card'
+import BootcampsDashboard from './views/dashboardPage/BootcampsDashboard.jsx'
+import BootcampDetail from './views/dashboardPage/BootcampDetail.jsx'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <NavBar/>
-      <div className='content'>
-        <Card
-        name="Curso React"
-        description="Texto de ejemplo"
-         technologies={["React", "Node.js", "CSS", "Firebase"]}
-      />
-      <Card
-        name="Curso de Java"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-         technologies={["Java", "springboot", "MySQL", "Firebase"]}
-      />
-      </div>
-      <Footer/>
-    </>
+   
+    <BrowserRouter>
+      <Topbar />
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<BootcampsDashboard />} />
+        <Route path="/bootcamps/:id" element={<BootcampDetail />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   )
 }
-
-export default App
