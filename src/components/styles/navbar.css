@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* general */
+.navbar {
+    background-color: rgba(74, 0, 91, 0.7);
+    position: relative;
+    max-width: 1500px; 
+    margin: 20px auto 0 auto;
+    border-radius: 12px;
+    padding: 5px 0;
+    backdrop-filter: blur(10px); 
+    z-index: 100;
+}
+
+
+/* Contenedor principal */
+.navbar-container {
+  margin: 0 auto;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 2.5rem;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+}
+
+/* Links */
+.navbar-links {
+    font-family: "Inter Tight", sans-serif;
+    display: flex;
+    gap: 4rem;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 500;
+  transition: transform 0.2s;
+}
+
+.navbar-links a:hover {
+  transform: scale(1.2);
+}
+
+/*Botón de login*/
+.navbar-button {
+    border-radius: 20px;
+    padding: 0.4em 2.5vw;
+    background: #0018F1;
+    background: linear-gradient(90deg,rgb(36, 144, 202) 0%, rgba(255, 0, 191, 1) 100%)
+}
+
+/* Boton para celulares */
+.navbar-toggle {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #ffffff;
+  user-select: none;
+}
+
+/* Menu celulares*/
+.navbar-mobile {
+  display: none;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 1rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-mobile a {
+  text-decoration: none;
+  color: #333333;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: color 0.3s;
+}
+
+.navbar-mobile a:hover {
+  color: #2563eb;
+}
+
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+
+  .navbar-mobile {
+    display: flex;
+  }
+}

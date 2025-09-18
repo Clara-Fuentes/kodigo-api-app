@@ -1,12 +1,10 @@
-import { useState } from 'react'
+// App.jsx
 import './App.css'
 import { LoginPage } from './views/loginPage/LoginPage'
 import { AuthProvider } from './contexts/AuthProvider'
 
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
     <>
       <h1>Kodigo-appi-app</h1>
@@ -18,5 +16,3 @@ function App() {
     </>
   )
 }
-
-export default App

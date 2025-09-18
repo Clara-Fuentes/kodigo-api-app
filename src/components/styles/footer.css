@@ -1,0 +1,101 @@
+/*footer */
+.footer {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: transparent;
+}
+
+/* footer container */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    width: 100%;
+    padding: 2.5rem 2rem;
+    background: radial-gradient(circle,rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.276) 100%);
+    border: 2px solid #ffffff;          
+    border-radius: 12px;
+    backdrop-filter: blur(6px);          
+}
+
+/* Lado izquierdo */
+.footer-left {
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo {
+    gap: 2rem;
+    height: 48px;
+    cursor: pointer;
+    filter: brightness(0) invert(1);
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.footer-links a:hover {
+  opacity: 0.7;
+}
+
+/* Lado derecho */
+/* Lado derecho */ 
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Redes sociales */
+.footer-socials {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.3rem;
+}
+
+.footer-socials svg {
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.footer-socials svg:hover {
+  transform: scale(1.2);
+}
+
+.footer-copy {
+  font-size: 0.9rem;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* pantallas angostas */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;      
+    align-items: center;       
+    gap: 1.5rem;            
+  }
+
+  .footer-left, 
+  .footer-right {
+    width: 100%;
+    justify-content: center;   
+    flex-direction: column; 
+    text-align: center;
+  }
+}
+
+
+
