@@ -1,173 +1,120 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { api } from "../../../api/client";
 
+export default function Register() {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const [msg, setMsg] = useState("");
+  const [okMsg, setOkMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const pwd = watch("password");
 
-export const Register = () => {
-
-    //Other hooks
-    const [successMessage, setSuccessMessage] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-
-    
-    //useForm hook
-    const {register, handleSubmit, reset, watch, formState: {errors}} = useForm();
-
-    const password = watch("password");
-
-    const onSubmitForm = ({ username, password}) => {
-        
-        fetch("http://localhost:3000/api/auth/register", {
-            method: "POST",
-            headers:{
-                "Content-Type" : "application/json"
-            },
-            body:JSON.stringify({
-                "username" : username,
-                "password" : password 
-            })
-        })
-        .then(res => res.json())
-        .then(({message}) =>  {
-            console.log(message)
-        
-            setSuccessMessage(message)
-    
-            setTimeout(() => {
-               setSuccessMessage("") 
-            }, 2000)
-    
-            reset()
-    })
-        .catch(er => console.log(er))
-        
-        
+  const onSubmit = async ({ name, email, password }) => {
+    try {
+      setLoading(true);
+      setMsg(""); setOkMsg("");
+      const res = await api("/users", {
+        method: "POST",
+        body: { name, email, password },
+      });
+      if (res?.ok) {
+        setOkMsg("Usuario creado. Ahora inicia sesión.");
+        // opcional: navegar directo al login
+        setTimeout(() => navigate("/login", { replace: true }), 1200);
+      } else {
+        setMsg(res?.message || "No se pudo registrar");
+      }
+    } catch (e) {
+      setMsg(e.message || "Error al registrar");
+    } finally {
+      setLoading(false);
     }
+  };
 
- return(   
-  <>
-  <h2 style={{ textAlign: "center", marginTop: "40px", color: "#A78BFA", fontFamily: "'Poppins', sans-serif" }}>
-    Register
-  </h2>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
+      <h2 style={styles.title}>Register</h2>
 
-  <form
-    onSubmit={handleSubmit(onSubmitForm)}
-    style={{
-      maxWidth: "400px",
-      margin: "30px auto",
-      padding: "30px",
-      borderRadius: "12px",
-      backgroundColor: "#1E1B2E",
-      boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
-      fontFamily: "'Poppins', sans-serif",
-      color: "#FFFFFF"
-    }}
-  >
-    <div style={{ marginBottom: "20px" }}>
-      <input
-        {...register("username", {
-          required: { value: true, message: "Its empty field" },
-          pattern: {
-            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}$/,
-            message: "Username must be 4–20 characters with letters and numbers"
-          }
-        })}
-        type="text"
-        placeholder="Username..."
-        style={{
-          width: "100%",
-          padding: "12px",
-          borderRadius: "8px",
-          border: "1px solid #4C1D95",
-          backgroundColor: "#2D2A3F",
-          color: "#FFF",
-          fontSize: "16px"
-        }}
-      />
-      {errors.username && (
-        <p style={{ color: "#F87171", fontSize: "14px", marginTop: "6px" }}>
-          {errors.username.message}
-        </p>
-      )}
-    </div>
+      <div style={styles.group}>
+        <input
+          {...register("name", { required: "Nombre requerido", minLength: { value: 2, message: "Mínimo 2" } })}
+          placeholder="Tu nombre"
+          style={styles.input}
+        />
+        {errors.name && <p style={styles.err}>{errors.name.message}</p>}
+      </div>
 
-    <div style={{ marginBottom: "20px" }}>
-      <input
-        {...register("password", {
-          required: { value: true, message: "Its empty field" },
-          pattern: {
-            value: /^[^'-]+$/,
-            message: "It's not a valid password"
-          }
-        })}
-        type={showPassword ? "text" : "password"}
-        placeholder="Password..."
-        style={{
-          width: "100%",
-          padding: "12px",
-          borderRadius: "8px",
-          border: "1px solid #4C1D95",
-          backgroundColor: "#2D2A3F",
-          color: "#FFF",
-          fontSize: "16px"
-        }}
-      />
-      {errors.password && (
-        <p style={{ color: "#F87171", fontSize: "14px", marginTop: "6px" }}>
-          {errors.password.message}
-        </p>
-      )}
-    </div>
+      <div style={styles.group}>
+        <input
+          {...register("email", {
+            required: "Email requerido",
+            pattern: { value: /^\S+@\S+\.\S+$/, message: "Email no válido" },
+          })}
+          placeholder="email@dominio.com"
+          style={styles.input}
+        />
+        {errors.email && <p style={styles.err}>{errors.email.message}</p>}
+      </div>
 
-    <div style={{ marginBottom: "20px" }}>
-      <input
-        {...register("confirmPassword", {
-          required: { value: true, message: "Confirm password" },
-          validate: (value) => value === password || "Password not match"
-        })}
-        type={showPassword ? "text" : "password"}
-        placeholder="Confirm Password..."
-        style={{
-          width: "100%",
-          padding: "12px",
-          borderRadius: "8px",
-          border: "1px solid #4C1D95",
-          backgroundColor: "#2D2A3F",
-          color: "#FFF",
-          fontSize: "16px"
-        }}
-      />
-      {errors.confirmPassword && (
-        <p style={{ color: "#F87171", fontSize: "14px", marginTop: "6px" }}>
-          {errors.confirmPassword.message}
-        </p>
-      )}
-    </div>
+      <div style={styles.group}>
+        <input
+          {...register("password", {
+            required: "Contraseña requerida",
+            minLength: { value: 6, message: "Mínimo 6" },
+          })}
+          type="password"
+          placeholder="Contraseña"
+          style={styles.input}
+        />
+        {errors.password && <p style={styles.err}>{errors.password.message}</p>}
+      </div>
 
-    <button
-      type="submit"
-      style={{
-        width: "100%",
-        padding: "12px",
-        backgroundColor: "#7C3AED",
-        color: "#FFF",
-        border: "none",
-        borderRadius: "8px",
-        fontSize: "16px",
-        fontWeight: "bold",
-        cursor: "pointer",
-        transition: "background-color 0.3s"
-      }}
-      onMouseOver={(e) => (e.target.style.backgroundColor = "#6D28D9")}
-      onMouseOut={(e) => (e.target.style.backgroundColor = "#7C3AED")}
-    >
-      Sign up
-    </button>
-  </form>
+      <div style={styles.group}>
+        <input
+          {...register("confirm", {
+            required: "Confirma tu contraseña",
+            validate: (v) => v === pwd || "No coincide",
+          })}
+          type="password"
+          placeholder="Confirmar contraseña"
+          style={styles.input}
+        />
+        {errors.confirm && <p style={styles.err}>{errors.confirm.message}</p>}
+      </div>
 
-  {successMessage && (
-    <p style={{ textAlign: "center", color: "#4ADE80", fontSize: "16px", marginTop: "20px" }}>
-      {successMessage}
-    </p>
-  )}
-</>
-)}
+      <button disabled={loading} type="submit" style={styles.button}>
+        {loading ? "Creando..." : "Sign up"}
+      </button>
+
+      {okMsg && <p style={styles.ok}>{okMsg}</p>}
+      {msg && <p style={styles.errCenter}>{msg}</p>}
+
+      <p style={{ textAlign: "center", marginTop: 12 }}>
+        ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
+      </p>
+    </form>
+  );
+}
+
+const styles = {
+  form: {
+    maxWidth: 400, margin: "40px auto", padding: 30, borderRadius: 12,
+    background: "#1E1B2E", color: "#fff", boxShadow: "0 8px 20px rgba(0,0,0,.3)",
+    fontFamily: "Poppins, sans-serif",
+  },
+  title: { textAlign: "center", marginBottom: 20, color: "#A78BFA" },
+  group: { marginBottom: 16 },
+  input: {
+    width: "100%", padding: 12, borderRadius: 8, border: "1px solid #4C1D95",
+    background: "#2D2A3F", color: "#fff", fontSize: 16,
+  },
+  button: {
+    width: "100%", padding: 12, background: "#7C3AED", color: "#fff",
+    border: "none", borderRadius: 8, fontSize: 16, fontWeight: "bold", cursor: "pointer",
+  },
+  err: { color: "#F87171", fontSize: 14, marginTop: 6 },
+  errCenter: { color: "#F87171", textAlign: "center", marginTop: 10 },
+  ok: { color: "#4ADE80", textAlign: "center", marginTop: 10 },
+};

@@ -1,15 +1,13 @@
-// index.jsx
+// src/main.jsx
 import React from "react";
-import { createRoot } from "react-dom/client";
-import { ThemeProvider } from "./contexts/ThemeContext.jsx";
-import "./index.css";
-import "./views/dashboardPage/bootcamps.css";
-import App from "./App.jsx";
+import ReactDOM from "react-dom/client";
+import AppRoutes from "./routes/index.jsx"; // <== ruta explícita al archivo
+import AuthProvider from "./contexts/AuthProvider";
 
-createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   </React.StrictMode>
 );

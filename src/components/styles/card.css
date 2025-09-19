@@ -1,58 +1,26 @@
 .card {
-    margin: 1.5rem;
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    height: 250px;
-    width: 450px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow:
+    0 22px 38px rgba(124, 58, 237, 0.18),   /* sombra moradita */
+    0 10px 18px rgba(0,0,0,0.12);
+  overflow: hidden;
 }
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+.card-inner {
+  padding: 18px 18px 16px;
+  border-radius: 18px;
 }
+.card-title { margin: 0 0 4px; font-weight: 800; font-size: 1.05rem; color: #111827; }
+.card-subtitle { margin: 0 0 6px; color: #6b7280; font-weight: 700; font-size: .92rem; }
+.card-description { margin: 0 0 12px; color: #4b5563; font-size: .95rem; line-height: 1.55; }
 
-.card-title {
-    font-family: "Inter Tight", sans-serif;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #222222;
-    margin: 0;
-}
-
-.card-subtitle{
-    font-family: "Inter Tight", sans-serif;
-    font-size: 0.8rem;
-    color: rgb(48, 48, 48);
-}
-
-.card-description {
-    font-size: 1rem;
-    color: #555555;
-    margin: 0;
-    flex-grow: 1; 
-    overflow-y: auto;      
-    padding-right: 4px;
-    scrollbar-width: thin;       
-    scrollbar-color: rgba(0,0,0,0.2) transparent; 
-}
-
-.card-technologies {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-  gap: 0.5rem;
-}
-
+.card-technologies { display: flex; flex-wrap: wrap; gap: 8px; }
 .tech-badge {
-  padding: 0.3rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 500;
   color: #fff;
+  font-weight: 800;
+  font-size: .82rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
-

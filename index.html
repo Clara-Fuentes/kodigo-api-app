@@ -1,13 +1,34 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kodigo App Grupo 01</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kodigo-api-app</title>
+    <style>
+      /* Para que NO se oculte nada por CSS globales */
+      html,body,#root{height:100%}
+      body{margin:0; background:#0b0a13; color:#21ff93; font:16px/1.4 system-ui,Segoe UI,Roboto; }
+      *{box-sizing:border-box}
+    </style>
+    <script>
+      // Si hay un error en runtime, muéstralo en pantalla
+      window.addEventListener('error', (e)=>{
+        const p = document.createElement('pre');
+        p.textContent = 'Runtime error: ' + e.message + '\n' + (e.error && e.error.stack || '');
+        p.style.whiteSpace='pre-wrap'; p.style.padding='16px'; p.style.background='#330'; p.style.color='#fff';
+        document.body.appendChild(p);
+      });
+      window.addEventListener('unhandledrejection', (e)=>{
+        const p = document.createElement('pre');
+        p.textContent = 'Unhandled promise: ' + (e.reason && (e.reason.stack || e.reason)) ;
+        p.style.whiteSpace='pre-wrap'; p.style.padding='16px'; p.style.background='#303'; p.style.color='#fff';
+        document.body.appendChild(p);
+      });
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Fallback visible ANTES de React -->
+    <div id="root">NO-REACT-FALLBACK</div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
